@@ -139,7 +139,7 @@ void InputCoeffsQuadraticEqu(QuadraticEqu * quadraticEqu)
            "гарантируется точность не менее 13 знаков после запятой\n\n"
            "Коэффициенты: ");
 
-    int cntOfReadNumbers = scanf("%lf %lf %lf", &quadraticEqu->coefficients.a, &quadraticEqu->coefficients.b,
+    int cntOfReadNumbers = scanf("%lg %lg %lg", &quadraticEqu->coefficients.a, &quadraticEqu->coefficients.b,
                                                 &quadraticEqu->coefficients.c);
     char ch = 0;
 
@@ -154,7 +154,7 @@ void InputCoeffsQuadraticEqu(QuadraticEqu * quadraticEqu)
 
         printf("Ввод некорректен. Повторите ввод: ");
 
-        cntOfReadNumbers = scanf("%lf %lf %lf", &quadraticEqu->coefficients.a, &quadraticEqu->coefficients.b,
+        cntOfReadNumbers = scanf("%lg %lg %lg", &quadraticEqu->coefficients.a, &quadraticEqu->coefficients.b,
                                                 &quadraticEqu->coefficients.c);
     }
 }
@@ -171,10 +171,10 @@ void OutputSolveQuadraticEqu(const QuadraticEqu * quadraticEqu)
             printf("\nУравнение не имеет решений.\n");
             break;
         case ROOTS_COUNT_ONE:
-            printf("\nУравнение имеет единственное решение: x = %.13lf\n", quadraticEqu->roots.x1);
+            printf("\nУравнение имеет единственное решение: x = %.13lg\n", quadraticEqu->roots.x1);
             break;
         case ROOTS_COUNT_TWO:
-            printf("\nУравнение имеет два решения: x1 = %.13lf, x2 = %.13lf", quadraticEqu->roots.x1, quadraticEqu->roots.x2);
+            printf("\nУравнение имеет два решения: x1 = %.13lg, x2 = %.13lg", quadraticEqu->roots.x1, quadraticEqu->roots.x2);
             break;
     }
 }
