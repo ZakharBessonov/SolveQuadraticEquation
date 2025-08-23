@@ -36,7 +36,7 @@ struct QuadraticEqu
     RootsCount cntOfRoots;
 };
 
-// Сравнивает вещественное число n с нулём с точностью 13 знаков после запятой.
+// Сравнивает вещественные числа n1 и n2 и возвращает true, если они равны в пределах погрешности.
 bool CompareDoubleNumbers(double n1, double n2);
 
 // Решает квадратное уравнение ax^2 + bx + c = 0
@@ -58,11 +58,11 @@ void TestSolveQuadraticEqu();
 
 int main(void)
 {
-    //QuadraticEqu quadraticEqu;
-    //InputCoeffsQuadraticEqu(&quadraticEqu);
-    //SolveQuadraticEqu(&quadraticEqu);
-    //OutputSolveQuadraticEqu(&quadraticEqu);
     TestSolveQuadraticEqu();
+    QuadraticEqu quadraticEqu;
+    InputCoeffsQuadraticEqu(&quadraticEqu);
+    SolveQuadraticEqu(&quadraticEqu);
+    OutputSolveQuadraticEqu(&quadraticEqu);
 
     return 0;
 }
