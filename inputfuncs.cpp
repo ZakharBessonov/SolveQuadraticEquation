@@ -9,18 +9,21 @@
 const int MAXSIZE = 41;
 bool st = true;
 
-void CleanInput(FILE * fp) {
-    char ch = 0;
+char CleanInput(FILE * fp)
+{
+    assert(fp != NULL);
+
+    char ch = '\0';
     while ((ch = getc(fp)) != '\n' && ch != EOF)
             continue;
-        if (ch == EOF) {
-            printf("\nВстречен символ конца файла. Программа завершена.");
-            exit(EXIT_FAILURE);
-        }
+    return ch;
 }
 
-void InputFileName(FILE** fp) {
-    FILE * fp_temp;
+void InputFileName(FILE** fp)
+{
+    assert(fp != NULL);
+
+    FILE * fp_temp = NULL;
     char filename[MAXSIZE];
 
     printf("Эта программа решает квадратные уравнения. Введите имя файла (не более 40 символов), из которого будут браться\n"
@@ -32,7 +35,7 @@ void InputFileName(FILE** fp) {
     }
 
     if ((fp_temp = fopen(filename, "r")) == NULL) {
-        printf("Не удаётся открыть файл \"%s\" или его не существует. Программа аварийно завершена!\n", filename);
+        printf("\nНе удаётся открыть файл \"%s\" или его не существует. Программа аварийно завершена!\n", filename);
         exit(EXIT_FAILURE);
     }
 
@@ -43,6 +46,8 @@ void InputCoeffsQuadraticEqu(QuadraticEqu * quadraticEqu, FILE * fp)
 {
     assert(quadraticEqu != NULL);
     assert(fp != NULL);
+
+    char temp_ch = '\0';
 
     if (fp == stdin) {
         if (st) {
@@ -55,9 +60,12 @@ void InputCoeffsQuadraticEqu(QuadraticEqu * quadraticEqu, FILE * fp)
 
         printf("Коэффициенты: ");
         int cntOfReadNumbers = fscanf(fp, "%lg %lg %lg", &quadraticEqu->coefficients.a, &quadraticEqu->coefficients.b, &quadraticEqu->coefficients.c);
-
         while (cntOfReadNumbers != 3) {
-            CleanInput(fp);
+            temp_ch = CleanInput(fp);
+            if (temp_ch == EOF){
+                printf("\nВстречен символ конца файла. Программа завершена.");
+                exit(EXIT_FAILURE);
+            }
             printf("Ввод некорректен. Повторите ввод: ");
             cntOfReadNumbers = fscanf(fp, "%lg %lg %lg", &quadraticEqu->coefficients.a, &quadraticEqu->coefficients.b,
                                                          &quadraticEqu->coefficients.c);
@@ -67,7 +75,11 @@ void InputCoeffsQuadraticEqu(QuadraticEqu * quadraticEqu, FILE * fp)
                                                          &quadraticEqu->coefficients.c);
 
         while (cntOfReadNumbers != 3) {
-            CleanInput(fp);
+            temp_ch = CleanInput(fp);
+            if (temp_ch == EOF){
+                printf("\nВстречен символ конца файла. Программа завершена.");
+                exit(EXIT_FAILURE);
+            }
             printf("\nВвод некорректен. Строка пропущена.\n");
             cntOfReadNumbers = fscanf(fp, "%lg %lg %lg", &quadraticEqu->coefficients.a, &quadraticEqu->coefficients.b,
                                                          &quadraticEqu->coefficients.c);
