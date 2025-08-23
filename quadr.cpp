@@ -12,11 +12,18 @@
 
 int main(void)
 {
-    TestSolveQuadraticEqu();
-    QuadraticEqu quadraticEqu;
-    InputCoeffsQuadraticEqu(&quadraticEqu);
-    SolveQuadraticEqu(&quadraticEqu);
-    OutputSolveQuadraticEqu(&quadraticEqu);
+    //TestSolveQuadraticEqu();
+    FILE * fp;
 
+    InputFileName(&fp);
+    QuadraticEqu quadraticEqu;
+
+    while (true) {
+        InputCoeffsQuadraticEqu(&quadraticEqu, fp);
+        SolveQuadraticEqu(&quadraticEqu);
+        OutputSolveQuadraticEqu(&quadraticEqu);
+    }
+
+    fclose(fp);
     return 0;
 }
