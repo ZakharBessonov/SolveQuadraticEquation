@@ -187,7 +187,7 @@ void OutputSolveQuadraticEqu(const QuadraticEqu * quadraticEqu)
 
 void TestSolveQuadraticEqu()
 {
-    const QuadraticEqu testArray[8] = {
+    const QuadraticEqu testArray[9] = {
         {{0, 0, 0}, {0,0}, ROOTS_COUNT_INF},
         {{1, 5, 6}, {-3, -2}, ROOTS_COUNT_TWO},
         {{0, 1, 3}, {-3, 0}, ROOTS_COUNT_ONE},
@@ -209,7 +209,7 @@ void TestSolveQuadraticEqu()
         if (quadraticEqu.cntOfRoots != testArray[i].cntOfRoots) {
             printf("FAILED: SolveQuadraticEqu(%lg, %lg, %lg) -> cntOfRoots = %d (should be %d)\n",
                     quadraticEqu.coefficients.a, quadraticEqu.coefficients.b, quadraticEqu.coefficients.c,
-                    quadraticEqu.cntOfRoot, testArray[i].cntOfRoots);
+                    quadraticEqu.cntOfRoots, testArray[i].cntOfRoots);
             return;
         } else if (quadraticEqu.cntOfRoots == ROOTS_COUNT_ONE) {
             if (!CompareDoubleNumbers(quadraticEqu.roots.x1, testArray[i].roots.x1)) {
