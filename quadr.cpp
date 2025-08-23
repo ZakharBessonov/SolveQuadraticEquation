@@ -37,7 +37,7 @@ struct QuadraticEqu
 };
 
 // Сравнивает вещественное число n с нулём с точностью 13 знаков после запятой.
-bool CompareWithZero(double n);
+bool CompareDoubleNumbers(double n1, double n2);
 
 // Решает квадратное уравнение ax^2 + bx + c = 0
 // и возвращает количество корней.
@@ -53,22 +53,28 @@ void InputCoeffsQuadraticEqu(QuadraticEqu * quadraticEqu);
 // Вывод решения квадратного уравнения.
 void OutputSolveQuadraticEqu(const QuadraticEqu * quadraticEqu);
 
+// Функция unit-тестирования
+void TestSolveQuadraticEqu();
+
 int main(void)
 {
-    QuadraticEqu quadraticEqu;
-    InputCoeffsQuadraticEqu(&quadraticEqu);
-    SolveQuadraticEqu(&quadraticEqu);
-    OutputSolveQuadraticEqu(&quadraticEqu);
+    //QuadraticEqu quadraticEqu;
+    //InputCoeffsQuadraticEqu(&quadraticEqu);
+    //SolveQuadraticEqu(&quadraticEqu);
+    //OutputSolveQuadraticEqu(&quadraticEqu);
+    TestSolveQuadraticEqu();
 
     return 0;
 }
 
-bool CompareWithZero(double n)
+bool CompareDoubleNumbers(double n1, double n2)
 {
-    assert(!isinf(n));
-    assert(!isnan(n));
+    assert(!isinf(n1));
+    assert(!isnan(n1));
+    assert(!isinf(n2));
+    assert(!isnan(n2));
 
-    return (fabs(n) < EPSILON);
+    return (fabs(n1 - n2) < EPSILON);
 }
 
 void SolveQuadraticEqu(QuadraticEqu * quadraticEqu)
@@ -86,21 +92,21 @@ void SolveQuadraticEqu(QuadraticEqu * quadraticEqu)
     assert(!isnan(b));
     assert(!isnan(c));
 
-    if (CompareWithZero(a)) {
+    if (CompareDoubleNumbers(a, 0)) {
         SolveLinealEqu(quadraticEqu);
     } else {
         // Формула дискриминанта (см. любой учебник по математике за 5 класс).
         double discriminant = b * b - 4 * a * c;
 
-        if (CompareWithZero(discriminant)) {
+        if (CompareDoubleNumbers(discriminant, 0)) {
             quadraticEqu->roots.x1 = -b / (2 * a);
             quadraticEqu->cntOfRoots = ROOTS_COUNT_ONE;
         } else if (discriminant < 0.0) {
             quadraticEqu->cntOfRoots = ROOTS_COUNT_ZERO;
         } else {
             double sqrtD = sqrt(discriminant);
-            quadraticEqu->roots.x1 = (-b + sqrtD) / (2 * a);
-            quadraticEqu->roots.x2 = (-b - sqrtD) / (2 * a);
+            quadraticEqu->roots.x1 = (-b - sqrtD) / (2 * a);
+            quadraticEqu->roots.x2 = (-b + sqrtD) / (2 * a);
             quadraticEqu->cntOfRoots = ROOTS_COUNT_TWO;
         }
     }
@@ -118,8 +124,8 @@ void SolveLinealEqu(QuadraticEqu * quadraticEqu)
     assert(!isnan(a));
     assert(!isnan(b));
 
-    if (CompareWithZero(a)) {
-        if (CompareWithZero(b)) {
+    if (CompareDoubleNumbers(a, 0)) {
+        if (CompareDoubleNumbers(b, 0)) {
             quadraticEqu->cntOfRoots = ROOTS_COUNT_INF;
         } else {
             quadraticEqu->cntOfRoots = ROOTS_COUNT_ZERO;
@@ -177,4 +183,55 @@ void OutputSolveQuadraticEqu(const QuadraticEqu * quadraticEqu)
             printf("\nУравнение имеет два решения: x1 = %.13lg, x2 = %.13lg", quadraticEqu->roots.x1, quadraticEqu->roots.x2);
             break;
     }
+}
+
+void TestSolveQuadraticEqu()
+{
+    const QuadraticEqu testArray[8] = {
+        {{0, 0, 0}, {0,0}, ROOTS_COUNT_INF},
+        {{1, 5, 6}, {-3, -2}, ROOTS_COUNT_TWO},
+        {{0, 1, 3}, {-3, 0}, ROOTS_COUNT_ONE},
+        {{5, 1, 3}, {0, 0}, ROOTS_COUNT_ZERO},
+        {{5, 16, 3}, {-3, -0.2}, ROOTS_COUNT_TWO},
+        {{1, 0, -9}, {-3, 3}, ROOTS_COUNT_TWO},
+        {{0.05, 0.16, 0.03}, {-3, -0.2}, ROOTS_COUNT_TWO},
+        {{0, 1, 3}, {-3, 0}, ROOTS_COUNT_ONE},
+        {{1, 2, 1}, {-1, 0}, ROOTS_COUNT_ONE}
+    };
+
+    QuadraticEqu quadraticEqu;
+
+    for (int i = 0; i < 8; i++) {
+        quadraticEqu.coefficients.a = testArray[i].coefficients.a;
+        quadraticEqu.coefficients.b = testArray[i].coefficients.b;
+        quadraticEqu.coefficients.c = testArray[i].coefficients.c;
+        SolveQuadraticEqu(&quadraticEqu);
+        if (quadraticEqu.cntOfRoots != testArray[i].cntOfRoots) {
+            printf("FAILED: SolveQuadraticEqu(%lg, %lg, %lg) -> cntOfRoots = %d (should be %d)\n",
+                    quadraticEqu.coefficients.a, quadraticEqu.coefficients.b, quadraticEqu.coefficients.c,
+                    quadraticEqu.cntOfRoot, testArray[i].cntOfRoots);
+            return;
+        } else if (quadraticEqu.cntOfRoots == ROOTS_COUNT_ONE) {
+            if (!CompareDoubleNumbers(quadraticEqu.roots.x1, testArray[i].roots.x1)) {
+                printf("FAILED: SolveQuadraticEqu(%lg, %lg, %lg) -> x = %lg (should be %lg)\n",
+                    quadraticEqu.coefficients.a, quadraticEqu.coefficients.b, quadraticEqu.coefficients.c,
+                    quadraticEqu.roots.x1, testArray[i].roots.x1);
+                return;
+            }
+        } else if (quadraticEqu.cntOfRoots == ROOTS_COUNT_TWO) {
+            if (!CompareDoubleNumbers(quadraticEqu.roots.x1, testArray[i].roots.x1)) {
+                printf("FAILED: SolveQuadraticEqu(%lg, %lg, %lg) -> x1 = %lg (should be %lg)\n",
+                    quadraticEqu.coefficients.a, quadraticEqu.coefficients.b, quadraticEqu.coefficients.c,
+                    quadraticEqu.roots.x1, testArray[i].roots.x1);
+                return;
+            }
+            if (!CompareDoubleNumbers(quadraticEqu.roots.x2, testArray[i].roots.x2)) {
+                printf("FAILED: SolveQuadraticEqu(%lg, %lg, %lg) -> x2 = %lg (should be %lg)\n",
+                    quadraticEqu.coefficients.a, quadraticEqu.coefficients.b, quadraticEqu.coefficients.c,
+                    quadraticEqu.roots.x2, testArray[i].roots.x2);
+                return;
+            }
+        }
+    }
+    printf("Все тесты пройдены успешно!\n");
 }
