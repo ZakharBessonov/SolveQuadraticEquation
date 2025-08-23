@@ -1,3 +1,10 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <math.h>
+#include <assert.h>
+#include "structs.h"
+
 void InputCoeffsQuadraticEqu(QuadraticEqu * quadraticEqu)
 {
     assert(quadraticEqu != NULL);

@@ -1,3 +1,35 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <math.h>
+#include <assert.h>
+#include "structs.h"
+#include "comp.h"
+
+void SolveLinealEqu(QuadraticEqu * quadraticEqu)
+{
+    assert(quadraticEqu != NULL);
+
+    double a = quadraticEqu->coefficients.b;
+    double b = quadraticEqu->coefficients.c;
+
+    assert(!isinf(a));
+    assert(!isinf(b));
+    assert(!isnan(a));
+    assert(!isnan(b));
+
+    if (CompareDoubleNumbers(a, 0)) {
+        if (CompareDoubleNumbers(b, 0)) {
+            quadraticEqu->cntOfRoots = ROOTS_COUNT_INF;
+        } else {
+            quadraticEqu->cntOfRoots = ROOTS_COUNT_ZERO;
+        }
+    } else {
+        quadraticEqu->roots.x1 = -b / a;
+        quadraticEqu->cntOfRoots = ROOTS_COUNT_ONE;
+    }
+}
+
 void SolveQuadraticEqu(QuadraticEqu * quadraticEqu)
 {
     assert(quadraticEqu != NULL);
@@ -30,29 +62,5 @@ void SolveQuadraticEqu(QuadraticEqu * quadraticEqu)
             quadraticEqu->roots.x2 = (-b + sqrtD) / (2 * a);
             quadraticEqu->cntOfRoots = ROOTS_COUNT_TWO;
         }
-    }
-}
-
-void SolveLinealEqu(QuadraticEqu * quadraticEqu)
-{
-    assert(quadraticEqu != NULL);
-
-    double a = quadraticEqu->coefficients.b;
-    double b = quadraticEqu->coefficients.c;
-
-    assert(!isinf(a));
-    assert(!isinf(b));
-    assert(!isnan(a));
-    assert(!isnan(b));
-
-    if (CompareDoubleNumbers(a, 0)) {
-        if (CompareDoubleNumbers(b, 0)) {
-            quadraticEqu->cntOfRoots = ROOTS_COUNT_INF;
-        } else {
-            quadraticEqu->cntOfRoots = ROOTS_COUNT_ZERO;
-        }
-    } else {
-        quadraticEqu->roots.x1 = -b / a;
-        quadraticEqu->cntOfRoots = ROOTS_COUNT_ONE;
     }
 }

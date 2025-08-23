@@ -1,3 +1,5 @@
+#include "structs.h"
+
 // Решает квадратное уравнение ax^2 + bx + c = 0
 // и возвращает количество корней.
 void SolveQuadraticEqu(QuadraticEqu * quadraticEqu);
