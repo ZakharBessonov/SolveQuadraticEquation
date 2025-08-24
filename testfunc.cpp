@@ -15,9 +15,17 @@ int TestSolveQuadraticEqu(char * filename)
     FILE * fp;
     fp = fopen(filename, "r");
 
+#ifdef DEBUGMODE
+
+    assert(fp != NULL);
+
+#endif
+
     if (fp == NULL) {
+        printf(RED "Не удалось открыть тестовый файл или его не существует.\n" BLACK);
         return 1;
     }
+
 
     QuadraticEqu testStruct = {{0, 0, 0}, {0, 0}, ROOTS_COUNT_ZERO};
     int tempCntOFRoots = 0;
@@ -36,12 +44,33 @@ int TestSolveQuadraticEqu(char * filename)
         else if (tempCntOFRoots == 2)
             testStruct.cntOfRoots = ROOTS_COUNT_TWO;
         else {
+
+#ifdef DEBUGMODE
+
+            assert(tempCntOFRoots >= -1 && tempCntOFRoots <= 2);
+
+#endif
+
+            printf(RED "Встречен некорректный тест.\n" BLACK);
             return 1;
         }
+
+#ifdef DEBUGMODE
+
+        assert(isfinite(testStruct.coefficients.a));
+        assert(isfinite(testStruct.coefficients.b));
+        assert(isfinite(testStruct.coefficients.c));
+        assert(isfinite(testStruct.roots.x1));
+        assert(isfinite(testStruct.roots.x2));
+
+#endif
+
+
 
         if (!isfinite(testStruct.coefficients.a) || !isfinite(testStruct.coefficients.b) || !isfinite(testStruct.coefficients.c) ||
             !isfinite(testStruct.roots.x1) || !isfinite(testStruct.roots.x2))
         {
+            printf(RED "Встречен некорректный тест.\n" BLACK);
             return 1;
         }
 
@@ -92,9 +121,9 @@ int TestSolveQuadraticEqu(char * filename)
         }
     }
 
-    printf("\nПрограмма теста завершена, так как на вход поступили некорректные данные или был достигнут символ конца файл.\n\n");
+    printf("\nПрограмма теста завершена, так как был достигнут символ конца тестового файл.\n\n");
     if (st) {
-        printf(GREEN "Все тесты до сообщения выше пройдены успешно!\n\n" BLACK);
+        printf(GREEN "Все тесты пройдены успешно!\n\n" BLACK);
     }
 
     fclose(fp);

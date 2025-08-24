@@ -7,11 +7,14 @@
 #include "structs.h"
 #include "colors.h"
 
-const int MAXSIZE = 41;
-
 char CleanInput(FILE * fp)
 {
-    //assert(fp != NULL);
+
+#ifdef DEBUGMODE
+
+    assert(fp != NULL);
+
+#endif
 
     if (fp == NULL)
         return EOF;
@@ -24,7 +27,12 @@ char CleanInput(FILE * fp)
 
 int InputFileName(FILE ** fp)
 {
-    //assert(fp != NULL);
+
+#ifdef DEBUGMODE
+
+    assert(fp != NULL);
+
+#endif
 
     if (fp == NULL)
         return 1;
@@ -47,7 +55,15 @@ int InputFileName(FILE ** fp)
         return 0;
     }
 
-    if ((fp_temp = fopen(filename, "r")) == NULL) {
+    fp_temp = fopen(filename, "r");
+
+#ifdef DEBUGMODE
+
+    assert(fp_temp != NULL);
+
+#endif
+
+    if (fp_temp == NULL) {
         return 1;
     }
 
@@ -58,8 +74,13 @@ int InputFileName(FILE ** fp)
 
 int InputCoeffsQuadraticEqu(QuadraticEqu * quadraticEqu, FILE * fp)
 {
-    //assert(quadraticEqu != NULL);
-    //assert(fp != NULL);
+
+#ifdef DEBUGMODE
+
+    assert(quadraticEqu != NULL);
+    assert(fp != NULL);
+
+#endif
 
     if (quadraticEqu == NULL || fp == NULL) {
         printf(RED "\n\nПередан нулевой указатель на структуру или файл.\n" BLACK);

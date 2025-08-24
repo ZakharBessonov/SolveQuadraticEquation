@@ -8,19 +8,31 @@
 
 int SolveLinealEqu(QuadraticEqu * quadraticEqu)
 {
-    //assert(quadraticEqu != NULL);
+
+#if defined(DEBUGMODE)
+
+    assert(quadraticEqu != NULL);
+
+#else
 
     if (quadraticEqu == NULL) {
         return 1;
     }
 
+#endif
+
     double a = quadraticEqu->coefficients.b;
     double b = quadraticEqu->coefficients.c;
 
-    //assert(!isinf(a));
-    //assert(!isinf(b));
-    //assert(!isnan(a));
-    //assert(!isnan(b));
+#if defined(DEBUGMODE)
+
+    assert(!isinf(a));
+    assert(!isinf(b));
+    assert(!isnan(a));
+    assert(!isnan(b));
+
+#endif
+
 
     if (CompareDoubleNumbers(a, 0) == PROBLEM) {
         return 1;
@@ -42,22 +54,33 @@ int SolveLinealEqu(QuadraticEqu * quadraticEqu)
 
 int SolveQuadraticEqu(QuadraticEqu * quadraticEqu)
 {
-    //assert(quadraticEqu != NULL);
+
+#if defined(DEBUGMODE)
+
+    assert(quadraticEqu != NULL);
+
+#else
 
     if (quadraticEqu == NULL) {
         return 1;
     }
 
+#endif
+
     double a = quadraticEqu->coefficients.a;
     double b = quadraticEqu->coefficients.b;
     double c = quadraticEqu->coefficients.c;
 
-    //assert(!isinf(a));
-    //assert(!isinf(b));
-    //assert(!isinf(c));
-    //assert(!isnan(a));
-    //assert(!isnan(b));
-    //assert(!isnan(c));
+#if defined(DEBUGMODE)
+
+    assert(!isinf(a));
+    assert(!isinf(b));
+    assert(!isinf(c));
+    assert(!isnan(a));
+    assert(!isnan(b));
+    assert(!isnan(c));
+
+#endif
 
     if (isnan(b) || isinf(b) || isnan(c) || isinf(c)) {
         return 1;

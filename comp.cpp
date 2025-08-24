@@ -8,6 +8,18 @@
 
 ResultOfComp CompareDoubleNumbers(double n1, double n2)
 {
+
+#ifdef DEBUGMODE
+
+    assert(isinf(n1));
+    assert(isnan(n1));
+
+    assert(isinf(n2));
+    assert(isnan(n2));
+
+#endif
+
+
     if (isinf(n1) || isnan(n1) || isinf(n2) || isnan(n2))
         return PROBLEM;
 

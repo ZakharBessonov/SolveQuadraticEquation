@@ -7,7 +7,12 @@
 
 int OutputSolveQuadraticEqu(const QuadraticEqu * quadraticEqu)
 {
-    //assert(quadraticEqu != NULL);
+
+#ifdef DEBUGMODE
+
+    assert(quadraticEqu != NULL);
+
+#endif
 
     if (quadraticEqu == NULL)
         return 1;
@@ -22,11 +27,11 @@ int OutputSolveQuadraticEqu(const QuadraticEqu * quadraticEqu)
                    (quadraticEqu->coefficients).b, (quadraticEqu->coefficients).c);
             break;
         case ROOTS_COUNT_ONE:
-            printf("\nУравнение %lgx^2%+lgx%+lg=0 имеет единственное решение: x = %.13lg\n", (quadraticEqu->coefficients).a,
+            printf("\nУравнение %lgx^2%+lgx%+lg=0 имеет единственное решение: x = %lg\n", (quadraticEqu->coefficients).a,
                    (quadraticEqu->coefficients).b, (quadraticEqu->coefficients).c, quadraticEqu->roots.x1);
             break;
         case ROOTS_COUNT_TWO:
-            printf("\nУравнение %lgx^2%+lgx%+lg=0 имеет два решения: x1 = %.13lg, x2 = %.13lg\n", (quadraticEqu->coefficients).a,
+            printf("\nУравнение %lgx^2%+lgx%+lg=0 имеет два решения: x1 = %lg, x2 = %lg\n", (quadraticEqu->coefficients).a,
                    (quadraticEqu->coefficients).b, (quadraticEqu->coefficients).c, quadraticEqu->roots.x1, quadraticEqu->roots.x2);
             break;
     }
