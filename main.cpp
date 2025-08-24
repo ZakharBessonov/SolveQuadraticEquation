@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <assert.h>
+
 #include "structs.h"
 #include "comp.h"
 #include "inputfuncs.h"
@@ -16,7 +17,8 @@ int main()
     // Часть для unit - тестов
 
 #if defined(TESTMODE)
-    char filename[MAXSIZE];
+
+    char filename[MAXSIZE] = "";
 
     printf("Введите имя файла с тестовыми данными: ");
 
@@ -37,13 +39,12 @@ int main()
         return 0;
     }
 
-    QuadraticEqu quadraticEqu = {{0, 0, 0}, {0, 0}, ROOTS_COUNT_ZERO};
-
+    QuadraticEqu quadraticEqu = {{ .a = 0, .b = 0, .c = 0}, { .x1 = 0, 0}, ROOTS_COUNT_ZERO};
 
     while (true) {
         if (InputCoeffsQuadraticEqu(&quadraticEqu, fp))
         {
-            printf("\nПрограмма завершена.");
+            printf("\nПрограмма завершена. Подарите автору 1 (один) бутерброд.");
 
             break;
         }
@@ -51,7 +52,7 @@ int main()
         if (SolveQuadraticEqu(&quadraticEqu))
         {
             printf(RED "\nПрограмма завершена (функции SolveQuadraticEqu передан нулевой указатель, или\n"
-                    "в качестве коэффициентов переданы inf или NaN)\n\n" BLACK);
+                       "в качестве коэффициентов переданы inf или NaN)\n\n" BLACK);
 
             break;
         }

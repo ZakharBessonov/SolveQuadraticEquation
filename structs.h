@@ -1,5 +1,9 @@
+//! @file
+
 #ifndef DEFEND_H
 #define DEFEND_H
+
+const int MAXSIZE = 41;
 
 enum RootsCount
 {
@@ -9,6 +13,10 @@ enum RootsCount
     ROOTS_COUNT_INF
 };
 
+
+//-------------------------------------------------------------------------------------------------
+//! \brief An enumeration of three constants that the CompareDoubleNumbers function can return.
+//-------------------------------------------------------------------------------------------------
 enum ResultOfComp
 {
     TRUE,
@@ -32,8 +40,8 @@ struct Roots
 struct QuadraticEqu
 {
     Coefficients coefficients;
-    Roots roots;
-    RootsCount cntOfRoots;
+    Roots        roots;
+    RootsCount   cntOfRoots;
 };
 
 #endif

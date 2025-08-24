@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <assert.h>
+
 #include "structs.h"
 #include "comp.h"
 

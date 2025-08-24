@@ -1,3 +1,7 @@
+
+CC = g++
+filesCPP = main.cpp comp.cpp inputfuncs.cpp outputfuncs.cpp solvefuncs.cpp testfunc.cpp
+
 all:
 	g++ main.cpp comp.cpp inputfuncs.cpp outputfuncs.cpp solvefuncs.cpp testfunc.cpp -o quadr
 test:

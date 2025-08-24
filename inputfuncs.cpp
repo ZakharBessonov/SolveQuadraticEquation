@@ -4,6 +4,7 @@
 #include <string.h>
 #include <math.h>
 #include <assert.h>
+
 #include "structs.h"
 #include "colors.h"
 
@@ -20,7 +21,7 @@ char CleanInput(FILE * fp)
         return EOF;
 
     char ch = '\0';
-    while ((ch = getc(fp)) != '\n' && ch != EOF)
+    while ((ch = (char) getc(fp)) != '\n' && ch != EOF)
             continue;
     return ch;
 }
@@ -38,10 +39,10 @@ int InputFileName(FILE ** fp)
         return 1;
 
     FILE * fp_temp = NULL;
-    char filename[MAXSIZE];
+    char filename[MAXSIZE] = "NIGGADYAJJJ";
 
     printf("Эта программа решает квадратные уравнения. Введите имя файла (не более 40 символов), из которого будут браться\n"
-    "входные данные, или введите stdin, если хотите вводить коэффициенты самостоятельно: ");
+           "входные данные, или введите stdin, если хотите вводить коэффициенты самостоятельно: ");
 
     scanf("%s", filename);
     if (strcmp(filename, "stdin") == 0) {
@@ -95,7 +96,7 @@ int InputCoeffsQuadraticEqu(QuadraticEqu * quadraticEqu, FILE * fp)
     }
 
     int cntOfReadNumbers = fscanf(fp, "%lg %lg %lg", &quadraticEqu->coefficients.a, &quadraticEqu->coefficients.b,
-                                                         &quadraticEqu->coefficients.c);
+                                                     &quadraticEqu->coefficients.c);
 
     while (cntOfReadNumbers != 3) {
             tempCh = CleanInput(fp);
@@ -110,8 +111,8 @@ int InputCoeffsQuadraticEqu(QuadraticEqu * quadraticEqu, FILE * fp)
             else
                 printf(RED "\nВвод некорректен. Строка пропущена.\n" BLACK);
 
-
-            cntOfReadNumbers = fscanf(fp, "%lg %lg %lg", &quadraticEqu->coefficients.a, &quadraticEqu->coefficients.b,
+            cntOfReadNumbers = fscanf(fp, "%lg %lg %lg", &quadraticEqu->coefficients.a,
+                                                         &quadraticEqu->coefficients.b,
                                                          &quadraticEqu->coefficients.c);
     }
 
