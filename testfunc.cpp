@@ -7,7 +7,7 @@
 #include "comp.h"
 #include "solvefuncs.h"
 
-void TestSolveQuadraticEqu()
+int TestSolveQuadraticEqu()
 {
     const QuadraticEqu testArray[] = {
         {{0, 0, 0}, {0,0}, ROOTS_COUNT_INF},
@@ -21,7 +21,7 @@ void TestSolveQuadraticEqu()
         {{1, 2, 1}, {-1, 0}, ROOTS_COUNT_ONE}
     };
 
-    QuadraticEqu quadraticEqu;
+    QuadraticEqu quadraticEqu = {{0, 0, 0}, {0, 0}, ROOTS_COUNT_ZERO};
     int sizeOfArray = sizeof(testArray) / sizeof(*testArray);
 
     for (int i = 0; i < sizeOfArray; i++) {
@@ -33,28 +33,29 @@ void TestSolveQuadraticEqu()
             printf("FAILED: SolveQuadraticEqu(%lg, %lg, %lg) -> cntOfRoots = %d (should be %d)\n",
                     quadraticEqu.coefficients.a, quadraticEqu.coefficients.b, quadraticEqu.coefficients.c,
                     quadraticEqu.cntOfRoots, testArray[i].cntOfRoots);
-            return;
+            return 0;
         } else if (quadraticEqu.cntOfRoots == ROOTS_COUNT_ONE) {
             if (!CompareDoubleNumbers(quadraticEqu.roots.x1, testArray[i].roots.x1)) {
                 printf("FAILED: SolveQuadraticEqu(%lg, %lg, %lg) -> x = %lg (should be %lg)\n",
                     quadraticEqu.coefficients.a, quadraticEqu.coefficients.b, quadraticEqu.coefficients.c,
                     quadraticEqu.roots.x1, testArray[i].roots.x1);
-                return;
+                return 0;
             }
         } else if (quadraticEqu.cntOfRoots == ROOTS_COUNT_TWO) {
             if (!CompareDoubleNumbers(quadraticEqu.roots.x1, testArray[i].roots.x1)) {
                 printf("FAILED: SolveQuadraticEqu(%lg, %lg, %lg) -> x1 = %lg (should be %lg)\n",
                     quadraticEqu.coefficients.a, quadraticEqu.coefficients.b, quadraticEqu.coefficients.c,
                     quadraticEqu.roots.x1, testArray[i].roots.x1);
-                return;
+                return 0;
             }
             if (!CompareDoubleNumbers(quadraticEqu.roots.x2, testArray[i].roots.x2)) {
                 printf("FAILED: SolveQuadraticEqu(%lg, %lg, %lg) -> x2 = %lg (should be %lg)\n",
                     quadraticEqu.coefficients.a, quadraticEqu.coefficients.b, quadraticEqu.coefficients.c,
                     quadraticEqu.roots.x2, testArray[i].roots.x2);
-                return;
+                return 0;
             }
         }
     }
     printf("Все тесты пройдены успешно!\n");
+    return 1;
 }

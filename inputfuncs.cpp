@@ -19,7 +19,7 @@ char CleanInput(FILE * fp)
     return ch;
 }
 
-void InputFileName(FILE** fp)
+void InputFileName(FILE ** fp)
 {
     assert(fp != NULL);
 
@@ -63,7 +63,7 @@ void InputCoeffsQuadraticEqu(QuadraticEqu * quadraticEqu, FILE * fp)
         while (cntOfReadNumbers != 3) {
             temp_ch = CleanInput(fp);
             if (temp_ch == EOF){
-                printf("\nВстречен символ конца файла. Программа завершена.");
+                printf("\nВстречен символ конца файла. Программа завершена.\n");
                 exit(EXIT_FAILURE);
             }
             printf("Ввод некорректен. Повторите ввод: ");
@@ -77,7 +77,7 @@ void InputCoeffsQuadraticEqu(QuadraticEqu * quadraticEqu, FILE * fp)
         while (cntOfReadNumbers != 3) {
             temp_ch = CleanInput(fp);
             if (temp_ch == EOF){
-                printf("\nВстречен символ конца файла. Программа завершена.");
+                printf("\nВстречен символ конца файла. Программа завершена.\n");
                 exit(EXIT_FAILURE);
             }
             printf("\nВвод некорректен. Строка пропущена.\n");
