@@ -6,6 +6,7 @@
 #include "structs.h"
 #include "comp.h"
 #include "solvefuncs.h"
+#include "colors.h"
 
 int TestSolveQuadraticEqu(char * filename)
 {
@@ -53,7 +54,7 @@ int TestSolveQuadraticEqu(char * filename)
 
         if (quadraticEqu.cntOfRoots != testStruct.cntOfRoots) {
 
-            printf("FAILED: SolveQuadraticEqu(%lg, %lg, %lg) -> cntOfRoots = %d (should be %d)\n",
+            printf(RED "FAILED: SolveQuadraticEqu(%lg, %lg, %lg) -> cntOfRoots = %d (should be %d)\n" BLACK,
                     quadraticEqu.coefficients.a, quadraticEqu.coefficients.b, quadraticEqu.coefficients.c,
                     quadraticEqu.cntOfRoots, testStruct.cntOfRoots);
 
@@ -62,7 +63,7 @@ int TestSolveQuadraticEqu(char * filename)
         } else if (quadraticEqu.cntOfRoots == ROOTS_COUNT_ONE) {
             if (CompareDoubleNumbers(quadraticEqu.roots.x1, testStruct.roots.x1) == FALSE) {
 
-                printf("FAILED: SolveQuadraticEqu(%lg, %lg, %lg) -> x = %lg (should be %lg)\n",
+                printf(RED "FAILED: SolveQuadraticEqu(%lg, %lg, %lg) -> x = %lg (should be %lg)\n" BLACK,
                     quadraticEqu.coefficients.a, quadraticEqu.coefficients.b, quadraticEqu.coefficients.c,
                     quadraticEqu.roots.x1, testStruct.roots.x1);
 
@@ -72,7 +73,7 @@ int TestSolveQuadraticEqu(char * filename)
         } else if (quadraticEqu.cntOfRoots == ROOTS_COUNT_TWO) {
             if (CompareDoubleNumbers(quadraticEqu.roots.x1, testStruct.roots.x1) == FALSE) {
 
-                printf("FAILED: SolveQuadraticEqu(%lg, %lg, %lg) -> x1 = %lg (should be %lg)\n",
+                printf(RED "FAILED: SolveQuadraticEqu(%lg, %lg, %lg) -> x1 = %lg (should be %lg)\n" BLACK,
                     quadraticEqu.coefficients.a, quadraticEqu.coefficients.b, quadraticEqu.coefficients.c,
                     quadraticEqu.roots.x1, testStruct.roots.x1);
 
@@ -81,7 +82,7 @@ int TestSolveQuadraticEqu(char * filename)
             }
             if (CompareDoubleNumbers(quadraticEqu.roots.x2, testStruct.roots.x2) == FALSE) {
 
-                printf("FAILED: SolveQuadraticEqu(%lg, %lg, %lg) -> x2 = %lg (should be %lg)\n",
+                printf(RED "FAILED: SolveQuadraticEqu(%lg, %lg, %lg) -> x2 = %lg (should be %lg)\n" BLACK,
                     quadraticEqu.coefficients.a, quadraticEqu.coefficients.b, quadraticEqu.coefficients.c,
                     quadraticEqu.roots.x2, testStruct.roots.x2);
 
@@ -91,9 +92,9 @@ int TestSolveQuadraticEqu(char * filename)
         }
     }
 
-    printf("Программа теста завершена, так как на вход поступили некорректные данные или был достигнут символ конца файл.\n\n");
+    printf("\nПрограмма теста завершена, так как на вход поступили некорректные данные или был достигнут символ конца файл.\n\n");
     if (st) {
-        printf("Все тесты до сообщения выше пройдены успешно!\n\n");
+        printf(GREEN "Все тесты до сообщения выше пройдены успешно!\n\n" BLACK);
     }
 
     fclose(fp);

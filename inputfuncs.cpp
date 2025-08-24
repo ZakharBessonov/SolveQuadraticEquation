@@ -5,6 +5,7 @@
 #include <math.h>
 #include <assert.h>
 #include "structs.h"
+#include "colors.h"
 
 const int MAXSIZE = 41;
 
@@ -61,7 +62,7 @@ int InputCoeffsQuadraticEqu(QuadraticEqu * quadraticEqu, FILE * fp)
     //assert(fp != NULL);
 
     if (quadraticEqu == NULL || fp == NULL) {
-        printf("\nПередан нулевой указатель на структуру или файл.\n");
+        printf(RED "\n\nПередан нулевой указатель на структуру или файл.\n" BLACK);
 
         return 1;
     }
@@ -69,7 +70,7 @@ int InputCoeffsQuadraticEqu(QuadraticEqu * quadraticEqu, FILE * fp)
     char tempCh = '\0';
 
     if (fp == stdin) {
-        printf("Коэффициенты: ");
+        printf("\nКоэффициенты: ");
     }
 
     int cntOfReadNumbers = fscanf(fp, "%lg %lg %lg", &quadraticEqu->coefficients.a, &quadraticEqu->coefficients.b,
@@ -84,9 +85,9 @@ int InputCoeffsQuadraticEqu(QuadraticEqu * quadraticEqu, FILE * fp)
                 return 1;
             }
             if (fp  == stdin)
-                printf("Ввод некорректен. Повторите ввод: ");
+                printf(RED "Ввод некорректен. Повторите ввод: " BLACK);
             else
-                printf("\nВвод некорректен. Строка пропущена.\n");
+                printf(RED "\nВвод некорректен. Строка пропущена.\n" BLACK);
 
 
             cntOfReadNumbers = fscanf(fp, "%lg %lg %lg", &quadraticEqu->coefficients.a, &quadraticEqu->coefficients.b,

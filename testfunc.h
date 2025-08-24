@@ -3,8 +3,7 @@
 //-------------------------------------------------------------------------------------------------
 //! Test function.
 //! @param [in] filename - name of file with test data.
-//! @return 0, if at least one test is failed, and 1, if all test passed successfully.
-//! @note Contains an array of already solved quadratic equations for tests.
+//! @return Return 0 on success or returns 1 if errors occur during operation.
 //-------------------------------------------------------------------------------------------------
 
 // Функция unit-тестирования
