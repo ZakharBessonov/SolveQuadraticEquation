@@ -4,13 +4,15 @@
 #include <math.h>
 #include <assert.h>
 #include "comp.h"
+#include "structs.h"
 
-bool CompareDoubleNumbers(double n1, double n2)
+ResultOfComp CompareDoubleNumbers(double n1, double n2)
 {
-    assert(!isinf(n1));
-    assert(!isnan(n1));
-    assert(!isinf(n2));
-    assert(!isnan(n2));
+    if (isinf(n1) || isnan(n1) || isinf(n2) || isnan(n2))
+        return PROBLEM;
 
-    return (fabs(n1 - n2) < EPSILON);
+
+    if (fabs(n1 - n2) < EPSILON)
+        return TRUE;
+    return FALSE;
 }

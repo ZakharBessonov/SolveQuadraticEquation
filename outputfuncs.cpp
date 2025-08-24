@@ -5,9 +5,12 @@
 #include <assert.h>
 #include "structs.h"
 
-void OutputSolveQuadraticEqu(const QuadraticEqu * quadraticEqu)
+int OutputSolveQuadraticEqu(const QuadraticEqu * quadraticEqu)
 {
-    assert(quadraticEqu != NULL);
+    //assert(quadraticEqu != NULL);
+
+    if (quadraticEqu == NULL)
+        return 1;
 
     switch(quadraticEqu->cntOfRoots) {
         case ROOTS_COUNT_INF:
@@ -27,4 +30,6 @@ void OutputSolveQuadraticEqu(const QuadraticEqu * quadraticEqu)
                    (quadraticEqu->coefficients).b, (quadraticEqu->coefficients).c, quadraticEqu->roots.x1, quadraticEqu->roots.x2);
             break;
     }
+
+    return 0;
 }

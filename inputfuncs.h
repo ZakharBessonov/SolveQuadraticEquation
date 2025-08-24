@@ -4,12 +4,11 @@
 //! Entering the coefficients of a quadratic equation.
 //! @param [out] quadraticEqu
 //! @param [in] fp - pointer to the file from which the coefficients will be taken
-//! @return  Nothing
-//! @note Crash the program if meet EOF or if at least one of the coefficients is inf or NaN or quadraticEqu = NULL
+//! @return  Return 0 on success or returns 1 if errors occur during operation
 //-------------------------------------------------------------------------------------------------
 
 // Ввод коэффициентов квадратного уравнения.
-void InputCoeffsQuadraticEqu(QuadraticEqu * quadraticEqu, FILE * fp);
+int InputCoeffsQuadraticEqu(QuadraticEqu * quadraticEqu, FILE * fp);
 
 //-------------------------------------------------------------------------------------------------
 //! Clears the input buffer.
@@ -23,9 +22,8 @@ char CleanInput(FILE * fp);
 //-------------------------------------------------------------------------------------------------
 //! Accepts the name of the file from which the input data will be taken.
 //! @param [in] fp - pointer to pointer to the file
-//! @return  Nothing
-//! @note Stops the program if the file with the entered name does not exist or cannot be opened or if fp = NULL.
+//! @return  Return 0 on success or returns 1 if errors occur during operation
 //-------------------------------------------------------------------------------------------------
 
 // Функция ввода файла, откуда будут браться данные
-void InputFileName(FILE ** fp);
+int InputFileName(FILE ** fp);

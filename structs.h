@@ -9,6 +9,13 @@ enum RootsCount
     ROOTS_COUNT_INF
 };
 
+enum ResultOfComp
+{
+    TRUE,
+    FALSE,
+    PROBLEM
+};
+
 struct Coefficients
 {
     double a;

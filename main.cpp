@@ -10,18 +10,41 @@
 #include "solvefuncs.h"
 #include "testfunc.h"
 
-int main(void)
+int main()
 {
-    //TestSolveQuadraticEqu();
+    char filename[40];
+    printf("Введите имя файла с тестовыми данными: ");
+    scanf("%s", filename);
+    if (TestSolveQuadraticEqu(filename)) {
+        printf("Программа тестирования преждевременно завершена, так как на вход поступили некорректные данные.\n\n");
+    }
+
     FILE * fp = NULL;
 
-    InputFileName(&fp);
+    if (InputFileName(&fp)) {
+        printf("Произошла ошибка при открытии указанного файла (либо указанного файла не существует)\n\n");
+        return 0;
+    }
+
     QuadraticEqu quadraticEqu = {{0, 0, 0}, {0, 0}, ROOTS_COUNT_ZERO};
 
+
     while (true) {
-        InputCoeffsQuadraticEqu(&quadraticEqu, fp);
-        SolveQuadraticEqu(&quadraticEqu);
-        OutputSolveQuadraticEqu(&quadraticEqu);
+        if (InputCoeffsQuadraticEqu(&quadraticEqu, fp)) {
+            printf("Программа завершена.");
+            break;
+        }
+
+        if (SolveQuadraticEqu(&quadraticEqu)) {
+            printf("Программа завершена (функции SolveQuadraticEqu передан нулевой указатель, или\n"
+                    "в качестве коэффициентов переданы inf или NaN)\n\n");
+            break;
+        }
+
+        if (OutputSolveQuadraticEqu(&quadraticEqu)) {
+            printf("Программа завершена, так как функции OutputSolveQuadraticEqu передан нулевой указатель\n\n");
+            break;
+        }
     }
 
     fclose(fp);
